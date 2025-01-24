@@ -1,7 +1,11 @@
 name : CI/CD .NET
 run-name: Deploy To ${{inputs}} by @${{github.actor}}
 
-on: [push]
+on:
+  push:
+    branches: [ $default-branch ]
+  pull_request:
+    branches: [ $default-branch ]
 
 jobs:
   build:
@@ -14,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Setup .NET
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
       - name: Install dependencies
